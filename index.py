@@ -4,6 +4,7 @@ from threading import Thread
 from telebot import types
 from markups import *
 from config import *
+import psycopg2
 import telebot
 import sqlite3
 import time
@@ -16,7 +17,7 @@ def main():
     stop_keys = False
     keys = "| "
 
-    connect = sqlite3.connect('data.db' , check_same_thread=False)
+    connect = psycopg2.connect(DB_URL, sslmode='require')
     cursor = connect.cursor()
     cursor.execute("""CREATE TABLE IF NOT EXISTS users( id INTEGER, status TEXT, end_status TEXT )""")
     cursor.execute("""CREATE TABLE IF NOT EXISTS items( id INTEGER, title TEXT, link TEXT, key_phrases TEXT, day INETGER, send_date TEXT)""")
