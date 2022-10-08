@@ -19,8 +19,8 @@ def main():
 
     connect = psycopg2.connect(DB_URL, sslmode='require')
     cursor = connect.cursor()
-    cursor.execute("""CREATE TABLE IF NOT EXISTS users( id INTEGER, status TEXT, end_status TEXT )""")
-    cursor.execute("""CREATE TABLE IF NOT EXISTS items( id INTEGER, title TEXT, link TEXT, key_phrases TEXT, day INETGER, send_date TEXT)""")
+    cursor.execute("""CREATE TABLE IF NOT EXISTS users( id INT, status TEXT, end_status TEXT )""")
+    cursor.execute("""CREATE TABLE IF NOT EXISTS items( id INT, title TEXT, link TEXT, key_phrases TEXT, day INT, send_date TEXT)""")
 
     def parsing(id, link, key_phrases, day, send_date):
         while True:
