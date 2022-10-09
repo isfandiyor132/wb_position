@@ -17,8 +17,7 @@ def main():
     stop_keys = False
     keys = "| "
 
-    # db_connection = psycopg2.connect(DB_URL, sslmode='require')
-    db_connection = psycopg2.connect(host="ec2-44-209-158-64.compute-1.amazonaws.com", database="d6rav3d6f3hs89", user="fhnsofmkgfqhbv", password="53de2c8bbc692340e208abca11a3911a0e1cb2090ea1d490ab7811ade6213311")
+    db_connection = psycopg2.connect(DB_URL, sslmode='require')
     db_object = db_connection.cursor()
     db_object.execute("""CREATE TABLE IF NOT EXISTS users( id TEXT, status TEXT, end_status TEXT )""")    
     db_object.execute("""CREATE TABLE IF NOT EXISTS items( id TEXT, title TEXT, link TEXT, key_phrases TEXT, day TEXT, send_date TEXT)""")
