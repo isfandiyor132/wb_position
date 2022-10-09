@@ -19,11 +19,12 @@ def main():
 
     connect = psycopg2.connect(DB_URL, sslmode='require')
     cursor = connect.cursor()
-    cursor.execute("""CREATE TABLE IF NOT EXISTS users( id integer, status text, end_status text )""")    
-    cursor.execute("""CREATE TABLE IF NOT EXISTS items( id integer, title text, link text, key_phrases text, day integer, send_date text)""")
+    cursor.execute("""CREATE TABLE IF NOT EXISTS users( id text, status text, end_status text )""")    
+    cursor.execute("""CREATE TABLE IF NOT EXISTS items( id text, title text, link text, key_phrases text, day text, send_date text)""")
 
     def parsing(id, link, key_phrases, day, send_date):
         while True:
+            day = int(day)
             now = datetime.now()
             if send_date == now.strftime("%H:%M"):
                 if day < 30:
@@ -72,7 +73,7 @@ def main():
         global keys, stop_keys
         if stop_keys:
             now = datetime.now()
-            cursor.execute(f'INSERT INTO items(id, title, link, key_phrases, day, send_date) VALUES (?, ?, ?, ?, ?, ?)', (message.chat.id, title, link, keys, 0, now.strftime("%H:%M")))
+            cursor.execute(f'INSERT INTO items(id, title, link, key_phrases, day, send_date) VALUES (?, ?, ?, ?, ?, ?)', (message.chat.id, title, link, keys, "0", now.strftime("%H:%M")))
             connect.commit()
             stop_keys = False
             bot.send_message(message.chat.id, "Товар успешно добавлен в список")
