@@ -73,7 +73,7 @@ def main():
         global keys, stop_keys
         if stop_keys:
             now = datetime.now()
-            db_object.execute(f'INSERT INTO items(id, title, link, key_phrases, day, send_date) VALUES (?, ?, ?, ?, ?, ?)', (message.chat.id, title, link, keys, "0", now.strftime("%H:%M")))
+            db_object.execute(f'INSERT INTO items(id, title, link, key_phrases, day, send_date) VALUES (%s, %s, %s, %s, %s, %s)', (message.chat.id, title, link, keys, "0", now.strftime("%H:%M")))
             db_connection.commit()
             stop_keys = False
             bot.send_message(message.chat.id, "Товар успешно добавлен в список")
@@ -153,7 +153,7 @@ def main():
                     month += 1
                 day = day+30-month_days[month-1]
                 end_sub_date = f"{hour}:{minute}-{month}/{day}/{year}"  
-                db_object.execute(f'INSERT INTO users(id, status, end_status) VALUES (?, ?, ?)', (id, "Бесплатный", end_sub_date,))
+                db_object.execute(f'INSERT INTO users(id, status, end_status) VALUES (%s, %s, %s)', (id, "Бесплатный", end_sub_date,))
                 db_connection.commit()
                 bot.send_message(message.chat.id, f"Добро пожаловать в бота, в котором вы можете автоматизировать анализ данных из *Wildberries*\n\nВы получили месяц `Бесплатного` подписки", parse_mode="MARKDOWNv2", reply_markup=services_menu())  
             elif not is_active(message.chat.id):
@@ -188,7 +188,7 @@ def main():
                     month += 1
                 day = day+30-month_days[month-1]
                 end_sub_date = f"{hour}:{minute}-{month}/{day}/{year}"  
-                db_object.execute(f'INSERT INTO users(id, status, end_status) VALUES (?, ?, ?)', (message.chat.id, "Бесплатный", end_sub_date,))
+                db_object.execute(f'INSERT INTO users(id, status, end_status) VALUES (%s, %s, %s)', (message.chat.id, "Бесплатный", end_sub_date,))
                 db_connection.commit()
                 bot.send_message(message.chat.id, f"Добро пожаловать в бота, в котором вы можете автоматизировать анализ данных из *Wildberries*\n\nВы получили месяц `Бесплатного` подписки", parse_mode="MARKDOWNv2")  
             elif not is_active(message.chat.id):
