@@ -50,6 +50,7 @@ def main():
                     db_object.execute(f"DELETE FROM items WHERE id = '{id}' AND key_phrases = '{key_phrases}'")
                     db_connection.commit()
                     break
+            keys = "| "
             time.sleep(1)
 
     # Функции для получение данных о товаре
@@ -78,7 +79,6 @@ def main():
             stop_keys = False
             bot.send_message(message.chat.id, "Товар успешно добавлен в список")
             parsing(message.chat.id, link, keys, 0, now.strftime("%H:%M"))
-            keys = "| "
         else:
             key_phrase = list(map(str, keys.split("|")))[1:-1]
             if len(key_phrase) > 40:
