@@ -27,7 +27,7 @@ def wildberries_parser(key_phrase, find_link):
                 else:
                     url = f"https://www.wildberries.ru/catalog/0/search.aspx?page={i}&sort=popular&search={key_phrase[p].strip()}"
                 browser.get(url)
-                browser.implicitly_wait(2)
+                browser.implicitly_wait(3)
 
                 blocks = browser.find_elements(By.CLASS_NAME, "j-card-item")
                 if len(blocks) > 0:
